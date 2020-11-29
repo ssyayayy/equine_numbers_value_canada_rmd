@@ -1,6 +1,11 @@
 ---
 title: "Historical horse population in Canada"
-output: github_document
+bibliography: horse_refs.bib
+params:
+  province: "Alberta"
+output: 
+  github_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -61,10 +66,11 @@ max_horses <- horse_pop %>%
   group_by(Province) %>% 
   summarize(Maximum = max(Value),
             Minimum = min(Value))
-max_horses
+knitr::kable(max_horses, 
+      caption = "Table 1. Maximum and minimum number of horses for each province between 1940 - 1972")
 ```
 
-Below we zoom in and look at the province of Alberta:
+Below we zoom in and look at the province of `r params$province`:
 
 ```{r plot province, fig.width=5, fig.height=4}
 province_plot <- horse_pop %>% 
